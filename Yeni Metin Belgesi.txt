@@ -1,0 +1,171 @@
+/*
+  Tek Sayfa React + Tailwind şablonu
+  Kullanım:
+    1) Proje oluşturun: npx create-react-app mysite --template cra-template-pwa
+    2) Tailwind kurun (resmi Tailwind kurulumuna göre)
+    3) Gerekli paketler: framer-motion, lucide-react, @shadcn/ui (isteğe bağlı)
+       npm i framer-motion lucide-react
+    4) Bu dosyayı src/App.jsx olarak kaydedin ve ./index.css içinde Tailwind sınıflarını etkinleştirin.
+
+  Açıklama:
+    - Tek sayfa, responsive, basit animasyonlar
+    - Navbar, Hero, Özellikler, Fiyatlandırma, İletişim formu
+    - Özelleştirmek için metinleri, renkleri ve bağlantıları değiştirin
+*/
+
+import React from "react";
+import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
+
+export default function App() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-slate-900 to-black text-slate-100">
+      {/* Navbar */}
+      <header className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-black">KM</div>
+          <div className="font-semibold text-lg">KEVINMKR</div>
+        </div>
+        <nav className="hidden md:flex gap-6 items-center text-sm">
+          <a href="#features" className="hover:underline">Özellikler</a>
+          <a href="#pricing" className="hover:underline">Fiyat</a>
+          <a href="#contact" className="hover:underline">İletişim</a>
+          <a href="#" className="px-4 py-2 bg-emerald-500 text-black rounded-md font-semibold">Hemen Başla</a>
+        </nav>
+
+        <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="menu">
+          {open ? <X /> : <Menu />}
+        </button>
+      </header>
+
+      {/* Mobile menu */}
+      {open && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="md:hidden px-6 pb-6"
+        >
+          <div className="flex flex-col gap-4 text-center">
+            <a href="#features">Özellikler</a>
+            <a href="#pricing">Fiyat</a>
+            <a href="#contact">İletişim</a>
+            <a href="#" className="px-4 py-2 bg-emerald-500 text-black rounded-md font-semibold mx-auto">Hemen Başla</a>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Hero */}
+      <main className="max-w-6xl mx-auto px-6 py-12 text-center">
+        <motion.h1
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-4xl md:text-6xl font-extrabold leading-tight"
+        >
+          Profesyonel, Hızlı ve Güzel Web Siteleri
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.25 }}
+          className="mt-6 max-w-2xl mx-auto text-lg text-slate-300"
+        >
+          Siteniz için hazır tek sayfa şablon — portföy, küçük işletme veya kişisel site. Tailwind + React ile kolayca özelleştirin.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4 }}
+          className="mt-8 flex flex-col sm:flex-row gap-4 justify-center"
+        >
+          <a href="#contact" className="px-6 py-3 bg-emerald-500 text-black rounded-md font-semibold">Ücretsiz Teklif Al</a>
+          <a href="#features" className="px-6 py-3 border border-slate-700 rounded-md text-slate-100">Özelliklere Göz At</a>
+        </motion.div>
+
+        {/* Hero mockup */}
+        <div className="mt-12 flex justify-center">
+          <div className="w-full max-w-4xl bg-gradient-to-br from-slate-800/60 to-transparent border border-slate-700 rounded-2xl p-6">
+            <div className="bg-gradient-to-r from-emerald-600/20 to-sky-600/10 rounded-lg p-6 flex flex-col md:flex-row gap-6 items-center">
+              <div className="flex-1">
+                <div className="h-48 md:h-36 bg-slate-800 rounded-lg flex items-center justify-center text-slate-400">Sitenizin Görseli Buraya</div>
+              </div>
+              <div className="flex-1 text-left">
+                <h3 className="font-semibold text-xl">Hızlı kurulum · Kolay yönetim</h3>
+                <p className="mt-2 text-slate-300">Netlify / Vercel ile tek tık dağıtım. CMS entegrasyonu (Sanity, Strapi) veya statik içerik.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Features */}
+      <section id="features" className="max-w-6xl mx-auto px-6 py-12">
+        <h2 className="text-2xl font-bold">Özellikler</h2>
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Feature title="Responsive" desc="Mobil ve masaüstünde mükemmel görünür." />
+          <Feature title="Hızlı" desc="Önbellek ve optimizasyonla hızlı yükleme." />
+          <Feature title="Kolay Özelleştirme" desc="Tailwind sınıflarıyla hızlı stil değişikliği." />
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section id="pricing" className="max-w-6xl mx-auto px-6 py-12">
+        <h2 className="text-2xl font-bold">Fiyatlandırma</h2>
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card title="Başlangıç" price="₺500" bullets={["Tek sayfa", "Form","Mobil uyumlu"]} highlight={false} />
+          <Card title="Pro" price="₺1.500" bullets={["3 sayfa","SEO temel","Gerçek zamanlı destek"]} highlight={true} />
+          <Card title="İş" price="₺3.000" bullets={["Özel tasarım","CMS entegrasyon","Bakım"]} highlight={false} />
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="max-w-6xl mx-auto px-6 py-12">
+        <h2 className="text-2xl font-bold">İletişim</h2>
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <p className="text-slate-300">Bana mesaj gönderin, teklif isteyin veya hazır bir proje göndermek istiyorsanız dosya paylaşın.</p>
+            <ul className="mt-4 space-y-2 text-sm text-slate-400">
+              <li>📧 email@ornek.com</li>
+              <li>📞 +90 5xx xxx xx xx</li>
+              <li>📍 Türkiye</li>
+            </ul>
+          </div>
+
+          <form className="bg-slate-800/50 p-4 rounded-lg flex flex-col gap-3" onSubmit={(e)=>{e.preventDefault(); alert('Form simülasyonu: mesaj gönderildi')}}>
+            <input className="bg-transparent border border-slate-700 rounded-md p-2" placeholder="İsim" required />
+            <input type="email" className="bg-transparent border border-slate-700 rounded-md p-2" placeholder="Email" required />
+            <textarea className="bg-transparent border border-slate-700 rounded-md p-2" placeholder="Mesaj" rows={4} required />
+            <button className="mt-2 px-4 py-2 bg-emerald-500 text-black rounded-md font-semibold">Gönder</button>
+          </form>
+        </div>
+      </section>
+
+      <footer className="max-w-6xl mx-auto px-6 py-8 text-center text-sm text-slate-500">© {new Date().getFullYear()} KEVINMKR — Tüm hakları saklıdır.</footer>
+    </div>
+  );
+}
+
+function Feature({title, desc}){
+  return (
+    <div className="bg-slate-800/60 border border-slate-700 rounded-lg p-6">
+      <h3 className="font-semibold">{title}</h3>
+      <p className="mt-2 text-slate-300 text-sm">{desc}</p>
+    </div>
+  )
+}
+
+function Card({title, price, bullets, highlight}){
+  return (
+    <div className={`${highlight ? 'border-2 border-emerald-500 scale-[1.02]' : 'border'} bg-slate-800/40 rounded-lg p-6`}> 
+      <h3 className="font-semibold text-lg">{title}</h3>
+      <div className="mt-2 text-3xl font-bold">{price}</div>
+      <ul className="mt-4 space-y-2 text-sm text-slate-300">
+        {bullets.map((b,i)=>(<li key={i}>• {b}</li>))}
+      </ul>
+      <button className="mt-6 w-full px-4 py-2 bg-emerald-500 text-black rounded-md font-semibold">Seç</button>
+    </div>
+  )
+}
